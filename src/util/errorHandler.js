@@ -18,7 +18,7 @@ export const expressErrorHandler = (err, req, res, next) => {
   // * Duplicate Key Error from MongoDB
   if (err.code === 11000) {
     statusCode = 400;
-    message = `${Object.entries(err.keyValue)[0][0].toUpperCase()} : ${
+    message = `${Object.entries(err.keyValue)[0][0]} : ${
       Object.entries(err.keyValue)[0][1]
     } is Already Used. Please provide a New Value.`;
   }
@@ -29,7 +29,7 @@ export const expressErrorHandler = (err, req, res, next) => {
     message = [];
     isArrayOfErrors = true;
     Object.entries(err.errors).map((err) => {
-      message.push(`${err[0].toUpperCase()} : ${err[1].message}.`);
+      message.push(`${err[0]} : ${err[1].message}.`);
     });
   }
 
