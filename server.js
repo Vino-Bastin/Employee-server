@@ -1,10 +1,22 @@
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
+import mongoose from "mongoose";
+import * as dotenv from "dotenv";
 
-const app = express();
+import app from "./app.js";
 
-app.use(bodyParser.json());
-app.use(cors());
+// * load environment variables
+dotenv.config();
 
-app.listen(5000, () => console.log("Server started on port 5000"));
+// * connect to database
+const DB_URL = process.env.MONGODB_URI.replace(
+  "<password>",
+  process.env.MONGODB_PASSWORD
+);
+
+mongoose
+  .connect(DB_URL)
+  .then(() => console.log("Connected to database!"))
+  .catch(() => console.log("Connection failed!"));
+
+// * start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
