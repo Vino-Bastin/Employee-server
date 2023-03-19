@@ -1,7 +1,17 @@
+/**
+ * @name server.js
+ * @description This file is the entry point of the application.
+ */
+
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
 import app from "./app.js";
+import { errorHandler } from "./src/util/errorHandler.js";
+
+// * global error handler
+process.on("uncaughtException", errorHandler);
+process.on("unhandledRejection", errorHandler);
 
 // * load environment variables
 dotenv.config();

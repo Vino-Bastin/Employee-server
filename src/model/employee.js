@@ -1,3 +1,8 @@
+/**
+ * @file employee.js
+ * @description This file contains the employee model
+ */
+
 import mongoose from "mongoose";
 import validator from "validator";
 
@@ -12,7 +17,7 @@ const employeeSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: (value) => validator.isEmail(value),
-      message: "${VALUE} is not a valid email",
+      message: "{VALUE} is not a valid email",
     },
   },
   gender: {
@@ -20,15 +25,15 @@ const employeeSchema = new mongoose.Schema({
     required: [true, "please enter gender"],
     enum: {
       values: ["Male", "Female"],
-      message: "${VALUE} is not supported",
+      message: "{VALUE} is not supported",
     },
   },
   phone: {
     type: String,
     required: [true, "Please enter phone number"],
     validate: {
-      validator: (value) => validator.isMobilePhone(value),
-      message: "${VALUE} is not a valid phone number",
+      validator: (value) => value.length === 10,
+      message: "{VALUE} is not a valid phone number",
     },
   },
   status: {
